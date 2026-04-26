@@ -44,9 +44,14 @@
 
 ## 安装
 
-### 方式一：从 GitHub Releases 下载（推荐）
+### 方式一：下载预构建扩展（推荐）
 
-1. 前往 [Releases 页面](https://github.com/zhuyuchen/glm-coding-plan-monitor/releases) 下载最新的 `glm-coding-plan-monitor.zip`
+| 镜像 | 下载 |
+|------|------|
+| GitHub | [v1.0.0](https://github.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.0.0) |
+| Gitee（国内加速） | [v1.0.0](https://gitee.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/V1.0.0) |
+
+1. 从上方链接下载最新的 `glm-coding-plan-monitor.zip`
 2. 解压到你喜欢的目录
 3. 打开 Chrome，地址栏输入 `chrome://extensions/`
 4. 打开右上角的 **开发者模式** 开关
@@ -56,7 +61,8 @@
 ### 方式二：从源码构建
 
 ```bash
-git clone https://github.com/zhuyuchen/glm-coding-plan-monitor.git
+git clone https://github.com/Ethanzyc/glm-coding-plan-monitor.git
+# 或：git clone https://gitee.com/Ethanzyc/glm-coding-plan-monitor.git
 cd glm-coding-plan-monitor
 npm install
 npm run build
@@ -106,6 +112,11 @@ npm run build
 ## 致谢
 
 本项目基于 [coding-quota-bar](https://github.com/hyizhou/coding-quota-bar)（by [@hyizhou](https://github.com/hyizhou)）进行 Chrome 扩展适配。原项目是一个 Electron + Vue 3 桌面应用，用于多平台 AI Coding Plan 监控。本项目的核心数据层、图表组件和国际化方案均改编自该项目。
+
+## 仓库地址
+
+- **GitHub**: https://github.com/Ethanzyc/glm-coding-plan-monitor
+- **Gitee**: https://gitee.com/Ethanzyc/glm-coding-plan-monitor
 
 ## 许可证
 

@@ -44,9 +44,14 @@
 
 ## Installation
 
-### Option 1: Download from GitHub Releases (Recommended)
+### Option 1: Download Pre-built Extension (Recommended)
 
-1. Go to the [Releases page](https://github.com/zhuyuchen/glm-coding-plan-monitor/releases) and download the latest `glm-coding-plan-monitor.zip`
+| Mirror | Download |
+|--------|----------|
+| GitHub | [v1.0.0](https://github.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.0.0) |
+| Gitee (China) | [v1.0.0](https://gitee.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/V1.0.0) |
+
+1. Download the latest `glm-coding-plan-monitor.zip` from the link above
 2. Unzip the file to a folder of your choice
 3. Open Chrome and navigate to `chrome://extensions/`
 4. Enable **Developer mode** using the toggle in the top-right corner
@@ -56,7 +61,8 @@
 ### Option 2: Build from Source
 
 ```bash
-git clone https://github.com/zhuyuchen/glm-coding-plan-monitor.git
+git clone https://github.com/Ethanzyc/glm-coding-plan-monitor.git
+# or: git clone https://gitee.com/Ethanzyc/glm-coding-plan-monitor.git
 cd glm-coding-plan-monitor
 npm install
 npm run build
@@ -106,6 +112,11 @@ npm run build
 ## Acknowledgements
 
 This project is a Chrome extension adaptation of [coding-quota-bar](https://github.com/hyizhou/coding-quota-bar) by [@hyizhou](https://github.com/hyizhou), an Electron + Vue 3 desktop app for multi-platform AI coding plan monitoring. The core data layer, chart components, and i18n are adapted from that project.
+
+## Links
+
+- **GitHub**: https://github.com/Ethanzyc/glm-coding-plan-monitor
+- **Gitee**: https://gitee.com/Ethanzyc/glm-coding-plan-monitor
 
 ## License
 
