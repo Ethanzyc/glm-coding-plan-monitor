@@ -48,8 +48,8 @@
 
 | 镜像 | 下载 |
 |------|------|
-| GitHub | [v1.0.0](https://github.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.0.0) |
-| Gitee（国内加速） | [v1.0.0](https://gitee.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/V1.0.0) |
+| GitHub | [v1.1.0](https://github.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.1.0) |
+| Gitee（国内加速） | [v1.1.0](https://gitee.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.1.0) |
 
 1. 从上方链接下载最新的 `glm-coding-plan-monitor.zip`
 2. 解压到你喜欢的目录

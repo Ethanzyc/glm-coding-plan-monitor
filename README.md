@@ -48,8 +48,8 @@
 
 | Mirror | Download |
 |--------|----------|
-| GitHub | [v1.0.0](https://github.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.0.0) |
-| Gitee (China) | [v1.0.0](https://gitee.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/V1.0.0) |
+| GitHub | [v1.1.0](https://github.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.1.0) |
+| Gitee (China) | [v1.1.0](https://gitee.com/Ethanzyc/glm-coding-plan-monitor/releases/tag/v1.1.0) |
 
 1. Download the latest `glm-coding-plan-monitor.zip` from the link above
 2. Unzip the file to a folder of your choice
