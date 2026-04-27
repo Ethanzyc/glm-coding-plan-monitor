@@ -1,8 +1,8 @@
-import type { UsageResult } from '../shared/types';
+import type { BadgeMode, UsageResult } from '../shared/types';
 import type { LoadedProvider } from './loader';
 
 export interface AggregatedUsage {
-  lowestPercent: number;
+  badgePercent: number;
   results: Map<string, UsageResult>;
   lastUpdate: Date;
 }
@@ -15,6 +15,11 @@ export class UsageAggregator {
   private results = new Map<string, UsageResult>();
   private lastUpdate: Date | null = null;
   private generation = 0;
+  private badgeMode: BadgeMode = '5h';
+
+  setBadgeMode(mode: BadgeMode): void {
+    this.badgeMode = mode;
+  }
 
   async aggregate(providers: LoadedProvider[]): Promise<AggregatedUsage> {
     const gen = ++this.generation;
@@ -58,8 +63,8 @@ export class UsageAggregator {
     // 丢弃过期结果
     if (gen !== this.generation) {
       console.log('[Aggregator] Discarding stale results (newer aggregate in progress)');
-      const lowestPercent = this.calculateLowestPercent();
-      return { lowestPercent, results: this.results, lastUpdate: this.lastUpdate! };
+      const badgePercent = this.calculateBadgePercent();
+      return { badgePercent, results: this.results, lastUpdate: this.lastUpdate! };
     }
 
     this.results.clear();
@@ -70,22 +75,24 @@ export class UsageAggregator {
     }
 
     this.lastUpdate = new Date();
-    const lowestPercent = this.calculateLowestPercent();
+    const badgePercent = this.calculateBadgePercent();
 
-    console.log(`[Aggregator] Updated. Lowest: ${lowestPercent}%, Providers: ${this.results.size}`);
+    console.log(`[Aggregator] Updated. Badge: ${badgePercent}%, Mode: ${this.badgeMode}, Providers: ${this.results.size}`);
 
-    return { lowestPercent, results: this.results, lastUpdate: this.lastUpdate };
+    return { badgePercent, results: this.results, lastUpdate: this.lastUpdate };
   }
 
   static calcPercent(result: UsageResult): number {
     return result.total > 0 ? (result.used / result.total) * 100 : 0;
   }
 
-  private calculateLowestPercent(): number {
-    if (this.results.size === 0) return 0;
+  private calculateBadgePercent(): number {
+    if (this.badgeMode === 'off' || this.results.size === 0) return -1;
     let maxPercent = 0;
     for (const result of this.results.values()) {
-      const pct = result.badgePercent ?? UsageAggregator.calcPercent(result);
+      const pct = this.badgeMode === 'weekly'
+        ? (result.badgePercentWeekly ?? result.badgePercent ?? UsageAggregator.calcPercent(result))
+        : (result.badgePercent ?? UsageAggregator.calcPercent(result));
       maxPercent = Math.max(maxPercent, pct);
     }
     return Math.round(maxPercent * 10) / 10;
@@ -94,7 +101,7 @@ export class UsageAggregator {
   getCurrentData(): AggregatedUsage | null {
     if (!this.lastUpdate) return null;
     return {
-      lowestPercent: this.calculateLowestPercent(),
+      badgePercent: this.calculateBadgePercent(),
       results: new Map(this.results),
       lastUpdate: this.lastUpdate,
     };

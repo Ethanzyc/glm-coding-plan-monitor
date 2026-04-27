@@ -1,4 +1,4 @@
-import type { AppConfig } from '../shared/types';
+import type { AppConfig, BadgeMode } from '../shared/types';
 import type { LoadedProvider } from './loader';
 import { UsageAggregator } from './aggregator';
 import type { BadgeManager } from './badge';
@@ -39,6 +39,10 @@ export class Scheduler {
     this.restartAlarm();
   }
 
+  setBadgeMode(mode: BadgeMode): void {
+    this.aggregator.setBadgeMode(mode);
+  }
+
   start(): void {
     console.log(`[Scheduler] Starting with interval: ${this.refreshInterval}s`);
     this.restartAlarm();
@@ -77,10 +81,10 @@ export class Scheduler {
 
     try {
       const aggregated = await this.aggregator.aggregate(this.providers);
-      this.badgeManager?.updateDisplay(aggregated.lowestPercent);
+      this.badgeManager?.updateDisplay(aggregated.badgePercent);
 
       const elapsed = Date.now() - startTime;
-      console.log(`[Scheduler] Refresh completed in ${elapsed}ms. Display: ${aggregated.lowestPercent}%`);
+      console.log(`[Scheduler] Refresh completed in ${elapsed}ms. Badge: ${aggregated.badgePercent}%`);
 
       this.onRefreshed?.(aggregated);
     } catch (error) {

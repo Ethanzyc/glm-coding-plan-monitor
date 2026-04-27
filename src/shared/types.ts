@@ -101,6 +101,7 @@ export interface UsageResult {
   total: number;
   expiresAt: string;
   badgePercent?: number;
+  badgePercentWeekly?: number;
   level?: string;
   error?: string;
   details?: {
@@ -120,6 +121,11 @@ export interface Provider {
 }
 
 /**
+ * 角标显示模式
+ */
+export type BadgeMode = '5h' | 'weekly' | 'off';
+
+/**
  * 应用配置
  */
 export interface AppConfig {
@@ -134,6 +140,7 @@ export interface AppConfig {
   showEstimatedCost?: boolean;
   language?: string;
   theme?: 'light' | 'dark' | 'auto';
+  badgeMode?: BadgeMode;
 }
 
 /**

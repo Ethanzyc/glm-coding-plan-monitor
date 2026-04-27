@@ -304,19 +304,20 @@ export class ZhipuProvider implements Provider {
     const tokenLimit = quotaResp.data.limits.find(item => item.type === 'TOKENS_LIMIT' && item.unit === 3);
     const tokenQuota = tokenLimit ? quotas[quotaResp.data.limits.indexOf(tokenLimit)] : undefined;
 
-    const hasWeeklyLimit = quotaResp.data.limits.some(
-      item => item.type === 'TOKENS_LIMIT' && item.unit === 6
-    );
+    const weeklyLimit = quotaResp.data.limits.find(item => item.type === 'TOKENS_LIMIT' && item.unit === 6);
+
+    const hasWeeklyLimit = !!weeklyLimit;
     const subscription = this.parseSubscription(subResp, quotaResp.data.level ?? '', hasWeeklyLimit);
 
-    // Use API's percentage directly for 5-hour quota
     const badgePercent = tokenLimit?.percentage ?? 0;
+    const badgePercentWeekly = weeklyLimit?.percentage ?? 0;
 
     return {
       used: tokenQuota?.used ?? 0,
       total: tokenQuota?.total ?? 0,
       expiresAt: tokenLimit ? toISODate(tokenLimit.nextResetTime) : '',
       badgePercent,
+      badgePercentWeekly,
       level: quotaResp.data.level,
       details: {
         quotas,

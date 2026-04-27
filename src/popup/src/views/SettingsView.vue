@@ -88,6 +88,14 @@
             <option value="auto">{{ $t('settings.themeAuto') }}</option>
           </select>
         </div>
+        <div class="form-group">
+          <label class="form-label">{{ $t('settings.badgeMode') }}</label>
+          <select v-model="badgeMode" class="form-select">
+            <option value="5h">{{ $t('settings.badgeMode5h') }}</option>
+            <option value="weekly">{{ $t('settings.badgeModeWeekly') }}</option>
+            <option value="off">{{ $t('settings.badgeModeOff') }}</option>
+          </select>
+        </div>
         <div class="toggle-group">
           <label class="toggle-row">
             <input type="checkbox" v-model="showEstimatedCost" />
@@ -111,7 +119,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { AppConfig, ProviderTypeConfig, AccountConfig } from '../../../shared/types'
+import type { AppConfig, BadgeMode, ProviderTypeConfig, AccountConfig } from '../../../shared/types'
 import { useTheme } from '../composables/useTheme'
 
 defineEmits<{ 'go-back': [] }>()
@@ -136,6 +144,7 @@ const providerList = ref<ProviderInfo[]>([])
 const refreshInterval = ref('300')
 const language = ref('zh-CN')
 const showEstimatedCost = ref(false)
+const badgeMode = ref<BadgeMode>('5h')
 const saving = ref(false)
 const saveStatus = ref('')
 const saveError = ref(false)
@@ -197,8 +206,9 @@ onMounted(async () => {
   refreshInterval.value = String(config.refreshInterval)
   language.value = config.language || locale.value
   showEstimatedCost.value = config.showEstimatedCost ?? false
+  badgeMode.value = config.badgeMode ?? '5h'
 
-  watch([providerList, refreshInterval, language, showEstimatedCost], () => {
+  watch([providerList, refreshInterval, language, showEstimatedCost, badgeMode], () => {
     scheduleSave()
   }, { deep: true })
 
@@ -231,6 +241,7 @@ async function saveConfig() {
       refreshInterval: parseInt(refreshInterval.value, 10),
       language: language.value,
       showEstimatedCost: showEstimatedCost.value,
+      badgeMode: badgeMode.value,
     })
     locale.value = language.value
     saveStatus.value = t('settings.saved')

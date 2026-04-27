@@ -22,6 +22,7 @@ async function initialize(): Promise<void> {
   // 3. 创建调度器
   scheduler = new Scheduler(config.refreshInterval);
   scheduler.setBadgeManager(badgeManager);
+  scheduler.setBadgeMode(config.badgeMode ?? '5h');
   scheduler.setOnRefreshed(() => {
     // 刷新完成后推送数据给所有 popup
     const data = buildUsageData();
@@ -80,6 +81,7 @@ async function reloadConfig(): Promise<void> {
 function applyConfig(config: AppConfig): void {
   // 更新调度器
   scheduler.setRefreshInterval(config.refreshInterval);
+  scheduler.setBadgeMode(config.badgeMode ?? '5h');
   badgeManager.setThresholds(config.display.colorThresholds);
 
   // 重新加载 Provider

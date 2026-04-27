@@ -145,7 +145,7 @@ export function buildUsageData(): UsageState | null {
   return {
     providers,
     lastUpdate: aggregated.lastUpdate.toISOString(),
-    overallPercent: aggregated.lowestPercent,
+    overallPercent: aggregated.badgePercent,
   };
 }
 
